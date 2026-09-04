@@ -139,5 +139,4 @@ Bakehouse is an independent project. It is not affiliated with or endorsed by Mi
 
 ## License
 
-<!-- Choose a license for your code (MIT and Apache-2.0 are common choices that play
-     well with the dependencies above) and reference it here. -->
+[MIT](LICENSE). Third-party components keep their own licenses (see the table above).
