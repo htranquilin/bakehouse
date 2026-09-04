@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bakehouse — visual identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens/tokens.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bh-bg);
+    color: var(--bh-text);
+    font-family: var(--bh-font-ui);
+    font-size: var(--bh-text-large);
+    line-height: var(--bh-lh-large);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 32px 140px; }
+
+  /* ---------- Hero: the hearth ---------- */
+  .hero {
+    position: relative;
+    padding: 130px 32px 96px;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    left: 50%; top: 4%;
+    width: 760px; height: 760px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(255,90,31,.20) 0%, rgba(255,90,31,.05) 42%, transparent 68%);
+    pointer-events: none;
+  }
+  .hero > * { position: relative; }
+  .hero svg { width: 132px; height: 132px; }
+  .wordmark {
+    font-family: var(--bh-font-display);
+    font-variation-settings: 'opsz' 60, 'SOFT' 40, 'WONK' 1;
+    font-weight: 600;
+    font-size: clamp(52px, 9vw, 82px);
+    line-height: 1.02;
+    letter-spacing: -0.028em;
+    margin: 22px 0 14px;
+  }
+  .tagline {
+    color: var(--bh-text-muted);
+    max-width: 44ch;
+    margin: 0 auto;
+    font-size: var(--bh-text-large);
+  }
+
+  /* ---------- Sections ---------- */
+  section { margin-top: 96px; }
+  h2 {
+    font-family: var(--bh-font-display);
+    font-variation-settings: 'opsz' 40, 'SOFT' 30, 'WONK' 0;
+    font-weight: 600;
+    font-size: var(--bh-text-display);
+    line-height: var(--bh-lh-display);
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+  }
+  .note {
+    color: var(--bh-text-muted);
+    max-width: 66ch;
+    margin: 0 0 28px;
+    font-size: var(--bh-text-body);
+    line-height: var(--bh-lh-body);
+  }
+  p { max-width: 66ch; }
+
+  /* ---------- Palette: bands, not cards ---------- */
+  .bands { display: flex; border-radius: var(--bh-radius-panel); overflow: hidden; }
+  .band { flex: 1; height: 92px; }
+  .keys {
+    display: flex; margin-top: 10px;
+    font-family: var(--bh-font-mono);
+    font-size: var(--bh-text-micro);
+    line-height: var(--bh-lh-micro);
+    color: var(--bh-text-faint);
+  }
+  .keys div { flex: 1; padding-right: 8px; }
+  .keys b { display: block; font-family: var(--bh-font-ui); font-weight: 500; color: var(--bh-text); font-size: var(--bh-text-small); }
+
+  /* ---------- Instance list: states in context ---------- */
+  .panel {
+    background: var(--bh-surface);
+    border: 1px solid var(--bh-border);
+    border-radius: var(--bh-radius-panel);
+    overflow: hidden;
+  }
+  .row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 13px 16px;
+    border-top: 1px solid var(--bh-border);
+    font-size: var(--bh-text-body);
+    line-height: var(--bh-lh-body);
+  }
+  .row:first-child { border-top: none; }
+  .row .name { font-weight: 500; }
+  .row .meta {
+    margin-left: auto;
+    font-family: var(--bh-font-mono);
+    font-size: var(--bh-text-small);
+    color: var(--bh-text-faint);
+  }
+  .row .status {
+    font-size: var(--bh-text-small);
+    color: var(--bh-text-muted);
+    min-width: 84px;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .dot.running  { background: var(--bh-running); box-shadow: 0 0 0 3px rgba(61,214,140,.14); }
+  .dot.starting { background: var(--bh-starting); }
+  .dot.stopped  { background: none; border: 1.5px solid var(--bh-stopped); }
+  .dot.failed   {
+    width: 0; height: 0; border-radius: 0; background: none;
+    border-left: 5px solid transparent; border-right: 5px solid transparent;
+    border-bottom: 9px solid var(--bh-failed);
+  }
+
+  /* ---------- Buttons ---------- */
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+  button {
+    font-family: inherit; font-size: var(--bh-text-body); font-weight: 500;
+    padding: 7px 14px; border-radius: var(--bh-radius-control);
+    border: 1px solid transparent; cursor: pointer;
+    transition: background var(--bh-dur-quick) var(--bh-ease),
+                border-color var(--bh-dur-quick) var(--bh-ease);
+  }
+  button:focus-visible { outline: 2px solid var(--bh-ember); outline-offset: 2px; }
+  .btn-primary { background: var(--bh-ember); color: #17110D; }
+  .btn-primary:hover { background: var(--bh-ember-hot); }
+  .btn-secondary { background: var(--bh-surface-raised); color: var(--bh-text); border-color: var(--bh-border-strong); }
+  .btn-secondary:hover { background: var(--bh-border); }
+  .btn-quiet { background: none; color: var(--bh-text-muted); }
+  .btn-quiet:hover { color: var(--bh-text); background: var(--bh-surface-raised); }
+  .btn-danger { background: none; color: var(--bh-failed); border-color: rgba(242,56,90,.4); }
+  .btn-danger:hover { background: rgba(242,56,90,.1); }
+
+  /* ---------- Type specimens ---------- */
+  .spec { padding: 18px 0; }
+  .spec + .spec { border-top: 1px solid var(--bh-border); }
+  .spec-key {
+    font-family: var(--bh-font-mono);
+    font-size: var(--bh-text-micro);
+    color: var(--bh-text-faint);
+    margin-bottom: 6px;
+  }
+  .sp-display { font-family: var(--bh-font-display); font-variation-settings: 'opsz' 60,'SOFT' 40,'WONK' 1; font-weight: 600; font-size: 39px; line-height: 44px; letter-spacing: -0.025em; }
+  .sp-title { font-size: 19px; line-height: 26px; font-weight: 600; letter-spacing: -0.01em; }
+  .sp-body { font-size: 13px; line-height: 20px; }
+  .sp-mono { font-family: var(--bh-font-mono); font-size: 13px; line-height: 21px; }
+
+  /* ---------- Editor ---------- */
+  pre.editor {
+    background: var(--bh-surface-sunken);
+    border: 1px solid var(--bh-border);
+    border-radius: var(--bh-radius-panel);
+    padding: 20px 22px;
+    margin: 0;
+    font-family: var(--bh-font-mono);
+    font-size: var(--bh-text-code);
+    line-height: var(--bh-lh-code);
+    overflow-x: auto;
+  }
+  .k { color: var(--bh-syn-keyword); }
+  .s { color: var(--bh-syn-string); }
+  .n { color: var(--bh-syn-number); }
+  .f { color: var(--bh-syn-function); }
+  .c { color: var(--bh-syn-comment); font-style: italic; }
+  .o { color: var(--bh-syn-operator); }
+
+  /* ---------- Mark sizes ---------- */
+  .sizes { display: flex; align-items: flex-end; gap: 34px; flex-wrap: wrap; }
+  .sizes figure { margin: 0; text-align: center; }
+  .sizes figcaption {
+    margin-top: 12px;
+    font-family: var(--bh-font-mono);
+    font-size: var(--bh-text-micro);
+    color: var(--bh-text-faint);
+  }
+
+  /* ---------- Rules ---------- */
+  .rules { list-style: none; padding: 0; margin: 0; max-width: 68ch; }
+  .rules li {
+    padding: 14px 0 14px 30px;
+    border-top: 1px solid var(--bh-border);
+    position: relative;
+    font-size: var(--bh-text-body);
+    line-height: var(--bh-lh-body);
+    color: var(--bh-text-muted);
+  }
+  .rules li::before {
+    content: "";
+    position: absolute; left: 4px; top: 20px;
+    width: 8px; height: 8px; border-radius: 2px;
+    background: var(--bh-ember);
+  }
+  .rules li.no::before { background: none; border: 1.5px solid var(--bh-stopped); }
+  .rules strong { color: var(--bh-text); font-weight: 500; }
+
+  /* ---------- Theme toggle ---------- */
+  .toggle {
+    position: fixed; top: 20px; right: 20px; z-index: 5;
+    background: var(--bh-surface-raised); color: var(--bh-text);
+    border: 1px solid var(--bh-border-strong);
+    border-radius: var(--bh-radius-pill);
+    padding: 7px 15px; font-size: var(--bh-text-small); font-weight: 500;
+    font-family: inherit; cursor: pointer;
+  }
+
+  footer {
+    margin-top: 110px; padding-top: 22px;
+    border-top: 1px solid var(--bh-border);
+    color: var(--bh-text-faint);
+    font-size: var(--bh-text-small);
+  }
+</style>
+</head>
+<body>
+
+<button class="toggle" id="themeToggle">Light theme</button>
+
+<header class="hero">
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="Bakehouse mark">
+    <defs>
+      <linearGradient id="e1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FF5A1F"/><stop offset="1" stop-color="#FFB020"/>
+      </linearGradient>
+      <mask id="m1">
+        <rect width="64" height="64" fill="#fff"/>
+        <rect x="20" y="22" width="24" height="4.5" rx="2.25"/>
+        <rect x="17.5" y="33" width="29" height="4.5" rx="2.25"/>
+        <rect x="17.5" y="44" width="29" height="4.5" rx="2.25"/>
+      </mask>
+    </defs>
+    <path d="M12 51V32a20 20 0 0 1 40 0v19a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4Z" fill="url(#e1)" mask="url(#m1)"/>
+  </svg>
+  <h1 class="wordmark">Bakehouse</h1>
+  <p class="tagline">A SQL Server workbench for macOS that brings its own instances.</p>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <h2>The idea</h2>
+    <p class="note">
+      Cold iron, hot ember. The interface is a dark, cool, neutral grey — the cast iron of an oven, not the
+      warm clay of a bakery storefront. Heat appears in exactly one place: data that is live. An ember-colored
+      element means something is running, connected, or about to change on disk. Everything else stays cool,
+      so the eye finds state instantly across a window full of panels.
+    </p>
+    <p class="note">
+      The mark is a hearth arch with three racks. Read one way it is an oven mouth. Read another it is the
+      stacked discs of the standard database glyph. It holds both without saying either out loud, and it still
+      reads at 16 pixels in a menu bar.
+    </p>
+  </section>
+
+  <section>
+    <h2>Palette</h2>
+    <p class="note">Six values carry the product. Everything else is a tint of the surface stack.</p>
+    <div class="bands">
+      <div class="band" style="background:#131518"></div>
+      <div class="band" style="background:#1A1D21"></div>
+      <div class="band" style="background:#2E333A"></div>
+      <div class="band" style="background:#FF5A1F"></div>
+      <div class="band" style="background:#FFB020"></div>
+      <div class="band" style="background:#E8E6E1"></div>
+    </div>
+    <div class="keys">
+      <div><b>Iron</b>#131518</div>
+      <div><b>Surface</b>#1A1D21</div>
+      <div><b>Border</b>#2E333A</div>
+      <div><b>Ember</b>#FF5A1F</div>
+      <div><b>Gold</b>#FFB020</div>
+      <div><b>Flour</b>#E8E6E1</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Instance states</h2>
+    <p class="note">
+      The instance list is the front door of the app, so its status vocabulary is the most load-bearing color
+      decision in the product. Each state pairs a hue with a distinct shape, so the list stays readable without color.
+    </p>
+    <div class="panel">
+      <div class="row">
+        <span class="dot running"></span>
+        <span class="name">northwind-2022</span>
+        <span class="status">Running</span>
+        <span class="meta">2022-CU12 · 1433</span>
+      </div>
+      <div class="row">
+        <span class="dot starting bh-proofing"></span>
+        <span class="name">payments-restore</span>
+        <span class="status">Restoring</span>
+        <span class="meta">4.2 GB of 9.8 GB</span>
+      </div>
+      <div class="row">
+        <span class="dot stopped"></span>
+        <span class="name">legacy-2017</span>
+        <span class="status">Stopped</span>
+        <span class="meta">2017-CU31 · 1434</span>
+      </div>
+      <div class="row">
+        <span class="dot failed"></span>
+        <span class="name">audit-sandbox</span>
+        <span class="status">Failed</span>
+        <span class="meta">Port 1433 in use</span>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn-primary">Start instance</button>
+      <button class="btn-secondary">Open backup</button>
+      <button class="btn-quiet">View logs</button>
+      <button class="btn-danger">Delete instance</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Type</h2>
+    <p class="note">
+      Fraunces for the wordmark and for the few moments the product speaks in its own voice — an empty
+      workbench, a first run. Geist everywhere else. JetBrains Mono for anything a server would have written,
+      with ligatures off so <span class="sp-mono">&lt;&gt;</span> and <span class="sp-mono">!=</span> stay literal.
+    </p>
+    <div class="spec">
+      <div class="spec-key">Fraunces 600 · 39/44 · opsz 60, SOFT 40, WONK 1</div>
+      <div class="sp-display">No instances yet</div>
+    </div>
+    <div class="spec">
+      <div class="spec-key">Geist 600 · 19/26</div>
+      <div class="sp-title">Restore northwind_2024_full.bak</div>
+    </div>
+    <div class="spec">
+      <div class="spec-key">Geist 400 · 13/20</div>
+      <div class="sp-body">Bakehouse will pull the SQL Server 2022 image, start a container on port 1433, and restore this backup into it. Nothing is installed on your Mac.</div>
+    </div>
+    <div class="spec">
+      <div class="spec-key">JetBrains Mono 400 · 13/21</div>
+      <div class="sp-mono">Server=localhost,1433;Database=Northwind;TrustServerCertificate=True</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Editor</h2>
+    <p class="note">
+      Six syntax colors, and ember is not among them. The cursor is the only ember thing in the editor, so it
+      never competes with the status colors in the sidebar.
+    </p>
+<pre class="editor"><span class="c">-- restore a backup into a fresh instance</span>
+<span class="k">RESTORE DATABASE</span> Northwind
+<span class="k">FROM DISK</span> <span class="o">=</span> <span class="s">'/var/opt/mssql/backup/northwind_2024_full.bak'</span>
+<span class="k">WITH</span> <span class="f">MOVE</span> <span class="s">'Northwind'</span> <span class="k">TO</span> <span class="s">'/var/opt/mssql/data/Northwind.mdf'</span>,
+     <span class="f">MOVE</span> <span class="s">'Northwind_log'</span> <span class="k">TO</span> <span class="s">'/var/opt/mssql/data/Northwind.ldf'</span>,
+     <span class="k">STATS</span> <span class="o">=</span> <span class="n">5</span>, <span class="k">REPLACE</span>;</pre>
+  </section>
+
+  <section>
+    <h2>The mark at working sizes</h2>
+    <p class="note">The racks close up below about 14px, which is the floor. Below that, use the solid arch with no knockouts.</p>
+    <div class="sizes" id="sizes"></div>
+  </section>
+
+  <section>
+    <h2>Rules</h2>
+    <ul class="rules">
+      <li><strong>Ember means live.</strong> Primary action, running instance, active connection, cursor. If it is not one of those, it is not ember.</li>
+      <li><strong>Gold means working.</strong> Pulling an image, restoring, proofing an instance. Gold is the only color allowed to animate.</li>
+      <li><strong>Radius encodes hierarchy.</strong> 5px controls, 10px panels, 14px modals. Do not put one radius on everything.</li>
+      <li><strong>State needs a shape.</strong> Filled dot, pulsing ring, hollow dot, triangle. Color alone is never the signal.</li>
+      <li class="no"><strong>No Microsoft marks.</strong> Never put the SQL Server logo, the Microsoft name, or "SSMS" in the product name, icon, or window chrome. Compatibility goes in the description.</li>
+      <li class="no"><strong>No bread.</strong> Wheat, rolling pins, chef hats and loaf illustrations turn a database tool into a café. The oven metaphor lives in the words and one arch, nowhere else.</li>
+      <li class="no"><strong>No terracotta.</strong> Ember is a hot #FF5A1F against cool grey. Muting it toward clay collapses the temperature contrast the whole identity rests on.</li>
+    </ul>
+  </section>
+
+  <footer>Bakehouse visual identity, version 0.1. Tokens in tokens/tokens.json.</footer>
+</div>
+
+<script>
+  const markSVG = (px) => `
+    <svg viewBox="0 0 64 64" width="${px}" height="${px}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g${px}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#FF5A1F"/><stop offset="1" stop-color="#FFB020"/>
+        </linearGradient>
+        <mask id="k${px}">
+          <rect width="64" height="64" fill="#fff"/>
+          <rect x="20" y="22" width="24" height="4.5" rx="2.25"/>
+          <rect x="17.5" y="33" width="29" height="4.5" rx="2.25"/>
+          <rect x="17.5" y="44" width="29" height="4.5" rx="2.25"/>
+        </mask>
+      </defs>
+      <path d="M12 51V32a20 20 0 0 1 40 0v19a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4Z" fill="url(#g${px})" mask="url(#k${px})"/>
+    </svg>`;
+
+  document.getElementById('sizes').innerHTML = [96, 48, 32, 24, 16]
+    .map(px => `<figure>${markSVG(px)}<figcaption>${px}px</figcaption></figure>`)
+    .join('');
+
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    btn.textContent = next === 'dark' ? 'Light theme' : 'Dark theme';
+  });
+</script>
+</body>
+</html>

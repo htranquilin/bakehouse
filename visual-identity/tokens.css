@@ -1,0 +1,188 @@
+/* Bakehouse design tokens
+   Cold iron, hot ember.
+   Mirrors tokens.json — keep the two in sync, or generate this file from it.
+
+   Usage:
+     <html data-theme="dark">   forces dark
+     <html data-theme="light">  forces light
+     no attribute              follows the OS
+*/
+
+:root {
+  /* ---- Brand constants (identical in both themes) ---- */
+  --bh-ember:       #FF5A1F;
+  --bh-ember-hot:   #FF7A45;
+  --bh-ember-deep:  #D93F0C;
+  --bh-gold:        #FFB020;
+
+  /* ---- Instance lifecycle ---- */
+  --bh-running:  #3DD68C;
+  --bh-starting: #FFB020;
+  --bh-pulling:  #FFB020;
+  --bh-stopped:  #6C747C;
+  --bh-failed:   #F2385A;
+  --bh-info:     #4EA3F5;
+
+  /* ---- Type ---- */
+  --bh-font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --bh-font-ui: "Geist", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --bh-font-mono: "JetBrains Mono", "IBM Plex Mono", "SF Mono", ui-monospace, monospace;
+
+  --bh-text-micro: 11px;  --bh-lh-micro: 16px;
+  --bh-text-small: 12px;  --bh-lh-small: 18px;
+  --bh-text-body: 13px;   --bh-lh-body: 20px;
+  --bh-text-large: 15.5px;--bh-lh-large: 24px;
+  --bh-text-title: 19px;  --bh-lh-title: 26px;
+  --bh-text-display: 27px;--bh-lh-display: 32px;
+  --bh-text-hero: 39px;   --bh-lh-hero: 44px;
+  --bh-text-code: 13px;   --bh-lh-code: 21px;
+
+  /* ---- Space ---- */
+  --bh-space-0-5: 2px;
+  --bh-space-1: 4px;
+  --bh-space-2: 8px;
+  --bh-space-3: 12px;
+  --bh-space-4: 16px;
+  --bh-space-5: 20px;
+  --bh-space-6: 24px;
+  --bh-space-8: 32px;
+  --bh-space-10: 40px;
+  --bh-space-12: 48px;
+
+  /* ---- Radius: encodes hierarchy ---- */
+  --bh-radius-control: 5px;
+  --bh-radius-field: 6px;
+  --bh-radius-panel: 10px;
+  --bh-radius-window: 12px;
+  --bh-radius-modal: 14px;
+  --bh-radius-pill: 999px;
+
+  /* ---- Motion ---- */
+  --bh-dur-instant: 80ms;
+  --bh-dur-quick: 140ms;
+  --bh-dur-settle: 240ms;
+  --bh-ease: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* ---- Dark: the default, because this is an editor ---- */
+:root,
+:root[data-theme="dark"] {
+  --bh-bg: #131518;
+  --bh-surface: #1A1D21;
+  --bh-surface-raised: #23272C;
+  --bh-surface-sunken: #0E1013;
+  --bh-border: #2E333A;
+  --bh-border-strong: #3D444C;
+  --bh-text: #E8E6E1;
+  --bh-text-muted: #98A0A8;
+  --bh-text-faint: #6C747C;
+  --bh-overlay: rgba(8, 10, 12, 0.72);
+  --bh-accent: var(--bh-ember);
+
+  --bh-shadow-popover: 0 8px 24px rgba(0, 0, 0, 0.44), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --bh-shadow-modal: 0 24px 64px rgba(0, 0, 0, 0.56), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --bh-glow-ember: 0 0 0 1px rgba(255, 90, 31, 0.35), 0 0 20px rgba(255, 90, 31, 0.18);
+
+  /* SQL editor */
+  --bh-syn-keyword: #FF9E64;
+  --bh-syn-string: #9ECE6A;
+  --bh-syn-number: #E0AF68;
+  --bh-syn-identifier: #E8E6E1;
+  --bh-syn-function: #7AA2F7;
+  --bh-syn-comment: #5E6673;
+  --bh-syn-operator: #98A0A8;
+  --bh-syn-cursor: #FF5A1F;
+  --bh-syn-selection: rgba(255, 90, 31, 0.20);
+  --bh-syn-line: rgba(255, 255, 255, 0.035);
+}
+
+:root[data-theme="light"] {
+  --bh-bg: #F1F0EC;
+  --bh-surface: #FFFFFF;
+  --bh-surface-raised: #FFFFFF;
+  --bh-surface-sunken: #E7E5DF;
+  --bh-border: #DBD9D2;
+  --bh-border-strong: #C2BFB6;
+  --bh-text: #15181B;
+  --bh-text-muted: #5C636A;
+  --bh-text-faint: #8A9199;
+  --bh-overlay: rgba(19, 21, 24, 0.45);
+  /* Ember at full saturation fails contrast on paper — step down for text and icons. */
+  --bh-accent: var(--bh-ember-deep);
+
+  --bh-shadow-popover: 0 6px 20px rgba(19, 21, 24, 0.12), 0 0 0 1px rgba(19, 21, 24, 0.07);
+  --bh-shadow-modal: 0 20px 52px rgba(19, 21, 24, 0.18), 0 0 0 1px rgba(19, 21, 24, 0.09);
+  --bh-glow-ember: 0 0 0 1px rgba(217, 63, 12, 0.4), 0 0 16px rgba(217, 63, 12, 0.14);
+
+  --bh-syn-keyword: #B3450A;
+  --bh-syn-string: #35701F;
+  --bh-syn-number: #8A5A00;
+  --bh-syn-identifier: #15181B;
+  --bh-syn-function: #17458F;
+  --bh-syn-comment: #8A9199;
+  --bh-syn-operator: #5C636A;
+  --bh-syn-cursor: #D93F0C;
+  --bh-syn-selection: rgba(217, 63, 12, 0.16);
+  --bh-syn-line: rgba(19, 21, 24, 0.035);
+
+  --bh-running: #1B9E5F;
+  --bh-starting: #A56A00;
+  --bh-pulling: #A56A00;
+  --bh-stopped: #7C838A;
+  --bh-failed: #C41F3E;
+  --bh-info: #1B69C4;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bh-bg: #F1F0EC;
+    --bh-surface: #FFFFFF;
+    --bh-surface-raised: #FFFFFF;
+    --bh-surface-sunken: #E7E5DF;
+    --bh-border: #DBD9D2;
+    --bh-border-strong: #C2BFB6;
+    --bh-text: #15181B;
+    --bh-text-muted: #5C636A;
+    --bh-text-faint: #8A9199;
+    --bh-overlay: rgba(19, 21, 24, 0.45);
+    --bh-accent: var(--bh-ember-deep);
+    --bh-shadow-popover: 0 6px 20px rgba(19, 21, 24, 0.12), 0 0 0 1px rgba(19, 21, 24, 0.07);
+    --bh-shadow-modal: 0 20px 52px rgba(19, 21, 24, 0.18), 0 0 0 1px rgba(19, 21, 24, 0.09);
+    --bh-glow-ember: 0 0 0 1px rgba(217, 63, 12, 0.4), 0 0 16px rgba(217, 63, 12, 0.14);
+    --bh-syn-keyword: #B3450A;
+    --bh-syn-string: #35701F;
+    --bh-syn-number: #8A5A00;
+    --bh-syn-identifier: #15181B;
+    --bh-syn-function: #17458F;
+    --bh-syn-comment: #8A9199;
+    --bh-syn-operator: #5C636A;
+    --bh-syn-cursor: #D93F0C;
+    --bh-syn-selection: rgba(217, 63, 12, 0.16);
+    --bh-syn-line: rgba(19, 21, 24, 0.035);
+    --bh-running: #1B9E5F;
+    --bh-starting: #A56A00;
+    --bh-pulling: #A56A00;
+    --bh-stopped: #7C838A;
+    --bh-failed: #C41F3E;
+    --bh-info: #1B69C4;
+  }
+}
+
+/* The one piece of ambient motion in the product: an instance that is
+   coming up or restoring. Everything else moves only in response to a click. */
+@keyframes bh-proof {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+.bh-proofing {
+  animation: bh-proof 1800ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bh-proofing { animation: none; opacity: 1; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

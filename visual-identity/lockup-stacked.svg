@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 152" width="240" height="152" role="img" aria-label="Bakehouse">
+  <defs>
+    <linearGradient id="bh-ember-s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF5A1F"/>
+      <stop offset="1" stop-color="#FFB020"/>
+    </linearGradient>
+    <mask id="bh-racks-s">
+      <rect x="88" y="8" width="64" height="64" fill="#fff"/>
+      <rect x="108"   y="30" width="24" height="4.5" rx="2.25" fill="#000"/>
+      <rect x="105.5" y="41" width="29" height="4.5" rx="2.25" fill="#000"/>
+      <rect x="105.5" y="52" width="29" height="4.5" rx="2.25" fill="#000"/>
+    </mask>
+  </defs>
+
+  <path
+    d="M100 59V40a20 20 0 0 1 40 0v19a4 4 0 0 1-4 4h-32a4 4 0 0 1-4-4Z"
+    fill="url(#bh-ember-s)"
+    mask="url(#bh-racks-s)"/>
+
+  <!-- Wordmark. Convert to outlines before shipping: see README. -->
+  <text x="120" y="118"
+        text-anchor="middle"
+        font-family="Fraunces, 'Fraunces 144', Georgia, serif"
+        font-size="40"
+        font-weight="600"
+        font-variation-settings="'SOFT' 40, 'WONK' 1, 'opsz' 40"
+        letter-spacing="-0.6"
+        fill="#E8E6E1">Bakehouse</text>
+
+  <text x="120" y="140"
+        text-anchor="middle"
+        font-family="'Geist', 'Geist Sans', system-ui, sans-serif"
+        font-size="12.5"
+        font-weight="400"
+        letter-spacing="0.2"
+        fill="#8E959C">A SQL Server workbench for macOS</text>
+</svg>

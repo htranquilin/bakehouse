@@ -1,0 +1,12 @@
+.DS_Store
+.cache/
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/
+src-tauri/resources/container-runtime/
+visual-identity/build/
+spike/container-*.pkg
+spike/extracted/
+spike/bakehouse-root/
+*.log

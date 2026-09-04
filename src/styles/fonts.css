@@ -1,0 +1,15 @@
+/* Brand fonts are bundled via fontsource packages (imported in main.tsx), which
+   register "Fraunces Variable", "Geist Sans", and "JetBrains Mono". tokens.css
+   (synced verbatim from visual-identity/) expects "Fraunces"/"Geist", so point
+   the token stacks at the registered names here. */
+
+:root {
+  --bh-font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --bh-font-ui: "Geist Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --bh-font-mono: "JetBrains Mono", "IBM Plex Mono", "SF Mono", ui-monospace, monospace;
+}
+
+/* Brand rule: ligatures off in mono contexts. */
+code, pre, .mono {
+  font-variant-ligatures: none;
+}

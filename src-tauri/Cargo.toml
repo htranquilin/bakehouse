@@ -1,0 +1,66 @@
+[package]
+name = "bakehouse"
+version = "0.1.0"
+description = "A SQL Server workbench for macOS that brings its own instances"
+authors = ["htranquilin"]
+edition = "2021"
+# The smoke-test bins (src/bin/*) would otherwise confuse the Tauri bundler
+# about which binary is the app.
+default-run = "bakehouse"
+
+[features]
+# Headless verification binaries; run e.g.
+#   cargo run --features smoke --bin sqlsmoke -- <resources> <scratch>
+smoke = []
+
+[[bin]]
+name = "smoke"
+path = "src/bin/smoke.rs"
+required-features = ["smoke"]
+
+[[bin]]
+name = "sqlsmoke"
+path = "src/bin/sqlsmoke.rs"
+required-features = ["smoke"]
+
+[[bin]]
+name = "baksmoke"
+path = "src/bin/baksmoke.rs"
+required-features = ["smoke"]
+
+[lib]
+name = "bakehouse_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-clipboard-manager = "2"
+tauri-plugin-window-state = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-appender = "0.2"
+uuid = { version = "1", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+rand = "0.10.2"
+keyring = { version = "3", features = ["apple-native"] }
+async-trait = "0.1.92"
+# Vendored fork of tiberius 0.12.3 (frozen upstream) with a minimal patch that
+# surfaces Info/Error/Done tokens through QueryStream — see vendor/tiberius,
+# grep "Bakehouse patch". Everything else is untouched.
+tiberius = { path = "vendor/tiberius", default-features = false, features = ["rustls", "chrono", "tds73"] }
+dashmap = "6.2.1"
+csv = "1.4.0"
+encoding_rs = "0.8.35"
+tokio-util = "0.7.19"
+futures-util = "0.3.34"
+tempfile = "3.27.0"
+rusqlite = { version = "0.40.2", features = ["bundled"] }
